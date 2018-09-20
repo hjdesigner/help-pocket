@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 import { connect } from 'react-redux'
 import { changeName, changeEmail, changePassword } from 'reducers/errorRegistration/actions-creators'
 import FieldInput from 'components/FieldInput'
@@ -71,7 +72,7 @@ const Fields = styled.div`
   justify-content: space-between;
 `
 const NameContianer = styled.div`
-  width: 100%
+  width: 100%;
   margin-bottom: 20px;
 `
 const EmailSenhaContianer = styled.div`
@@ -105,9 +106,10 @@ function validaEmail (email) {
 const mapDispatchToProps = (dispatch) => ({
   handleRegister: (e) => {
     e.preventDefault()
-    const name = e.target.name.value
-    const email = e.target.email.value
-    const password = e.target.password.value
+    const element = e.target
+    const name = element.name.value
+    const email = element.email.value
+    const password = element.password.value
     const formValues = { name, email, password }
     name.length === 0 ? dispatch(changeName(true)) : dispatch(changeName(false))
     email.length === 0 ? dispatch(changeEmail(true)) : dispatch(changeEmail(false))
@@ -115,7 +117,21 @@ const mapDispatchToProps = (dispatch) => ({
     password.length === 0 ? dispatch(changePassword(true)) : dispatch(changePassword(false))
 
     if (formValues.name !== '' && validaEmail(email) === true && formValues.password !== '') {
-      console.log('passou')
+      axios.post('http://localhost:4002/users', {
+        name,
+        email,
+        password
+      })
+      .then(response => {
+        if (response.status === 200) {
+          element.name.value = ''
+          element.email.value = ''
+          element.password.value = ''
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
     }
   }
 })
