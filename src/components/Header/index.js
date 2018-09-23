@@ -13,12 +13,10 @@ const Header = () => (
 const HeaderContainer = styled.header`
   width: 100%;
   height: 70px;
+  margin-bottom: 20px;
   display: flex;
   align-items:center;
   justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
   border-bottom: 1px solid rgba(0,0,0,.0625);
   text-align: center;
   background-color: #FFF;

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { injectGlobal } from 'styled-components'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
+import Home from 'views/home'
 import cadastro from 'views/cadastro'
 
 class App extends PureComponent {
@@ -14,6 +15,7 @@ class App extends PureComponent {
         <div>
           <Header />
           <Switch>
+            <Route path='/' exact component={Home} />
             <Route path='/cadastro' component={cadastro} />
           </Switch>
           <Footer />
