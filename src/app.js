@@ -7,6 +7,7 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import Home from 'views/home'
 import cadastro from 'views/cadastro'
+import category from 'views/category'
 
 class App extends PureComponent {
   render () {
@@ -17,6 +18,7 @@ class App extends PureComponent {
           <Switch>
             <Route path='/' exact component={Home} />
             <Route path='/cadastro' component={cadastro} />
+            <Route path='/categoria' component={category} />
           </Switch>
           <Footer />
         </div>
