@@ -1,29 +1,36 @@
 'use strict'
 import React, { PureComponent } from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { addCategory } from 'reducers/listCategory/actions-creators'
+import { fetchCategories } from 'reducers/listCategory/actions-creators'
 import Nav from 'components/nav'
 
 class Category extends PureComponent {
   componentDidMount () {
     this.props.fetchCategory()
   }
+
   render () {
     return (
       <CategoryContainer>
         <Container>
           <Nav />
+          <NewCategory>
+            <NewCategoryTitle>Cadastrar Categoria</NewCategoryTitle>
+            <NewCategoryForm>
+              <NewCategoryLabel htmlFor='name' >Nome da categoria</NewCategoryLabel>
+              <NewCategoryInput type='text' name='name' />
+              <NewCategoryButton>Cadastrar</NewCategoryButton>
+            </NewCategoryForm>
+          </NewCategory>
           <ListCategory>
             <ListCategoryHeader>
               <ListCategoryTitle>Categorias</ListCategoryTitle>
-              <ListCategoryAdd>Adicionar</ListCategoryAdd>
             </ListCategoryHeader>
             <ListCategories>
-              <ListCategoryText>Transporte</ListCategoryText>
-              <ListCategoryText>Casa</ListCategoryText>
-              <ListCategoryText>Mercado</ListCategoryText>
+              {this.props.listCategories.map((item, index) =>
+                <ListCategoryText key={index}>{item.name}</ListCategoryText>
+              )}
             </ListCategories>
           </ListCategory>
         </Container>
@@ -59,12 +66,9 @@ const ListCategoryHeader = styled.header`
 `
 const ListCategoryTitle = styled.h2`
   font-size: 1em;
-`
-const ListCategoryAdd = styled.button`
-  background-color: #4664d3;
-  border: 0;
-  color: #FFF;
-  padding: 5px 10px;
+  @media screen and (min-width: 1024px) {
+    font-size: 1.2em;
+  }
 `
 const ListCategories = styled.ul`
   padding: 0;
@@ -79,22 +83,57 @@ const ListCategoryText = styled.li`
     border-bottom: 0;
   }
 `
+const NewCategory = styled.section`
+  width: 100%;
+  margin-top: 20px;
+  background-color: #FFF;
+  color: #000;
+  border: 1px solid #e6e6e6;
+  padding: 10px;
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchCategory: () => {
-    axios.get('http://localhost:4002/categories')
-    .then(response => {
-      response.data.items.forEach(item => {
-        const id = '01'
-        const name = 'item.name';
-        console.log(id + '   ' + name)
-        dispatch(addCategory(id, name))
-      })
-    })
-    .catch(error => {
-      console.log(error)
-    })
+  @media screen and (min-width: 1024px) {
+    width: 63%
+    margin-top: 0;
   }
+`
+const NewCategoryTitle = styled.h2`
+  font-size: 1em;
+  margin-bottom: 20px;
+  @media screen and (min-width: 1024px) {
+    font-size: 1.2em;
+  }
+`
+const NewCategoryForm = styled.form`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+`
+const NewCategoryLabel = styled.label`
+  width: 100%;
+  margin-bottom: 10px;
+`
+const NewCategoryInput = styled.input`
+  width: 100%;
+  padding: 15px 10px;
+  border: 1px solid #e4e2e2;
+  font-size: 1em;
+`
+const NewCategoryButton = styled.button`
+  margin-top: 20px;
+  padding: 15px 20px;
+  border: 0;
+  background-color: #4664d3;
+  color: #FFF;
+  text-transform: uppercase;
+  cursor: pointer;
+`
+
+const mapStateToProps = (state) => ({
+  listCategories: state.ListCategory
 })
 
-export default connect(null, mapDispatchToProps)(Category)
+const mapDispatchToProps = (dispatch) => ({
+  fetchCategory: () => dispatch(fetchCategories())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category)

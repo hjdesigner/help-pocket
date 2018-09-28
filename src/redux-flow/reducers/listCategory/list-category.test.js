@@ -20,3 +20,30 @@ it('Should add category item', () => {
   ]
   expect(ListCategory(before, action)).to.be.deep.equal(after)
 })
+
+it('Should add a new category item', () => {
+  const before = deepFreeze([
+    {
+      id: 'abc01',
+      name: 'Transporte'
+    }
+  ])
+  const action = deepFreeze({
+    type: ADD_CATEGORY,
+    payload: {
+      id: 'abc02',
+      name: 'Casa'
+    }
+  })
+  const after = [
+    {
+      id: 'abc01',
+      name: 'Transporte'
+    },
+    {
+      id: 'abc02',
+      name: 'Casa'
+    }
+  ]
+  expect(ListCategory(before, action)).to.be.deep.equal(after)
+})
