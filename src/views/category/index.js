@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { fetchCategories } from 'reducers/listCategory/actions-creators'
+import ConfigStylus from '../../configStylus'
 import Nav from 'components/nav'
 
 class Category extends PureComponent {
@@ -27,7 +28,7 @@ class Category extends PureComponent {
             <ListCategoryHeader>
               <ListCategoryTitle>Categorias</ListCategoryTitle>
             </ListCategoryHeader>
-            <ListCategories>
+            <ListCategories borderBlue>
               {this.props.listCategories.map((item, index) =>
                 <ListCategoryText key={index}>{item.name}</ListCategoryText>
               )}
@@ -41,33 +42,35 @@ class Category extends PureComponent {
 
 const CategoryContainer = styled.main``
 const Container = styled.div`
-  max-width: 1360px;
+  max-width: ${ConfigStylus.maxWidthContainer};
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: ${ConfigStylus.spaceContainer};
+  padding-left: ${ConfigStylus.spaceContainer};
   margin-right: auto;
   margin-left: auto;
 `
 const ListCategory = styled.section`
   width: 100%;
-  margin-top: 20px;
-  background-color: #FFF;
-  color: #000;
-  border: 1px solid #e6e6e6;
-  padding: 10px;
+  margin-top: ${ConfigStylus.spaceLarge};
+  background-color: ${ConfigStylus.backgroundClear};
+  border: ${ConfigStylus.borderDefault};
+  ${props => props.borderBlue ? '' : `border-right-color: ${ConfigStylus.borderColorLightBlue};`}
+  ${props => props.borderBlue ? '' : `border-right-width: 2px;`}
+  padding: ${ConfigStylus.spaceInner};
 `
 const ListCategoryHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: ${ConfigStylus.space};
 `
 const ListCategoryTitle = styled.h2`
-  font-size: 1em;
-  @media screen and (min-width: 1024px) {
-    font-size: 1.2em;
+  font-size: ${ConfigStylus.sizeLittleH2};
+  font-weight: 300;
+  @media screen and (min-width: ${ConfigStylus.breakPointBig}) {
+    font-size: ${ConfigStylus.sizeMediumH2};
   }
 `
 const ListCategories = styled.ul`
@@ -76,31 +79,31 @@ const ListCategories = styled.ul`
   list-style: none;
 `
 const ListCategoryText = styled.li`
-  padding: 10px 0;
-  border-bottom: 1px solid #e6e6e6;
-  font-size: .8em;
+  padding-top: ${ConfigStylus.spaceInner};
+  padding-bottom: ${ConfigStylus.spaceInner};
+  border-bottom: ${ConfigStylus.borderDefault};
   &:last-child {
     border-bottom: 0;
   }
 `
 const NewCategory = styled.section`
   width: 100%;
-  margin-top: 20px;
-  background-color: #FFF;
-  color: #000;
-  border: 1px solid #e6e6e6;
-  padding: 10px;
+  margin-top: ${ConfigStylus.spaceLarge};
+  background-color: ${ConfigStylus.backgroundClear};
+  border: ${ConfigStylus.borderDefault};
+  padding: ${ConfigStylus.spaceInner};
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: ${ConfigStylus.breakPointBig}) {
     width: 63%
     margin-top: 0;
   }
 `
 const NewCategoryTitle = styled.h2`
-  font-size: 1em;
-  margin-bottom: 20px;
-  @media screen and (min-width: 1024px) {
-    font-size: 1.2em;
+  font-size: ${ConfigStylus.sizeLittleH2};
+  font-weight: 300;
+  margin-bottom: ${ConfigStylus.spaceLarge};
+  @media screen and (min-width: ${ConfigStylus.breakPointBig}) {
+    font-size: ${ConfigStylus.sizeMediumH2};
   }
 `
 const NewCategoryForm = styled.form`
@@ -110,21 +113,22 @@ const NewCategoryForm = styled.form`
 `
 const NewCategoryLabel = styled.label`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: ${ConfigStylus.space};
 `
 const NewCategoryInput = styled.input`
   width: 100%;
-  padding: 15px 10px;
-  border: 1px solid #e4e2e2;
-  font-size: 1em;
+  padding: ${ConfigStylus.spaceForms};
+  border: ${ConfigStylus.borderDefault};
+  font-size: ${ConfigStylus.sizeInput};
 `
 const NewCategoryButton = styled.button`
-  margin-top: 20px;
-  padding: 15px 20px;
+  margin-top: ${ConfigStylus.spaceLarge};
+  padding: ${ConfigStylus.spaceForms};
   border: 0;
-  background-color: #4664d3;
-  color: #FFF;
+  background-color: ${ConfigStylus.backgroundBlue};
+  color: ${ConfigStylus.backgroundClear};
   text-transform: uppercase;
+  font-size: ${ConfigStylus.sizeButton};
   cursor: pointer;
 `
 

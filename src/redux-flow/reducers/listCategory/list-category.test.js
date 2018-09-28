@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import deepFreeze from 'deep-freeze'
-import { ADD_CATEGORY } from './actions'
+import { ADD_CATEGORY, FETCH_CATEGORY } from './actions'
 import ListCategory from './index'
 
 it('Should add category item', () => {
@@ -34,6 +34,35 @@ it('Should add a new category item', () => {
       id: 'abc02',
       name: 'Casa'
     }
+  })
+  const after = [
+    {
+      id: 'abc01',
+      name: 'Transporte'
+    },
+    {
+      id: 'abc02',
+      name: 'Casa'
+    }
+  ]
+  expect(ListCategory(before, action)).to.be.deep.equal(after)
+})
+
+it('Should add fetch all category item', () => {
+  const data = [
+    {
+      id: 'abc01',
+      name: 'Transporte'
+    },
+    {
+      id: 'abc02',
+      name: 'Casa'
+    }
+  ]
+  const before = deepFreeze([])
+  const action = deepFreeze({
+    type: FETCH_CATEGORY,
+    payload: data
   })
   const after = [
     {

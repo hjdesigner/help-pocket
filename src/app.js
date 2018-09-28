@@ -35,7 +35,8 @@ injectGlobal`
   body {
     background-color: #f9fafb;
     font-family: 'Roboto', sans-serif;
-    font-size: 100%;
+    font-size: 16px;
+    color: #333435;
   }
 `
 
